@@ -1,24 +1,30 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Components;
-
-namespace FunkoProject.Web.Pages;
+﻿using Microsoft.AspNetCore.Components;
+using FunkoProject.Web.Models;
+using FunkoProject.Web.Services;
+using Blazored.LocalStorage;
 
 public class LoginPageBase : ComponentBase
 {
-    protected LoginModel LoginModel { get; set; } = new LoginModel();
+    [Inject] private AccountService _accountService { get; set; }
+    [Inject] private NavigationManager _navigationManager { get; set; }
+    [Inject] private ILocalStorageService _localStorage { get; set; }
 
-    protected void HandleValidSubmit()
+    protected LoginViewModel LoginViewModel { get; set; } = new LoginViewModel();
+    private string ErrorMessage { get; set; }
+
+    protected async Task HandleValidSubmit()
     {
-        // Tutaj dodaj logikę logowania
-        Console.WriteLine($"Próba logowania: {LoginModel.Username}");
+        try
+        {
+            var token = await _accountService.Login(LoginViewModel);
+            
+            await _localStorage.SetItemAsync("authToken", token);
+            // NavigationManager.NavigateTo("/");  // Przekieruj na stronę główną po zalogowaniu
+        }
+        catch (HttpRequestException e)
+        {
+            ErrorMessage = "Błąd logowania. Sprawdź swoje dane i spróbuj ponownie.";
+            Console.WriteLine($"Błąd logowania: {e.Message}");
+        }
     }
-}
-
-public class LoginModel
-{
-    [Required(ErrorMessage = "Nazwa użytkownika jest wymagana")]
-    public string Username { get; set; }
-
-    [Required(ErrorMessage = "Hasło jest wymagane")]
-    public string Password { get; set; }
 }
