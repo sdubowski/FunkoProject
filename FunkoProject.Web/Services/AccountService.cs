@@ -16,7 +16,7 @@ public class AccountService
         _httpClient = httpClient;
     }
 
-    public async Task<string> Login(User user)
+    public async Task<string> Login(LoginViewModel user)
     {
         var response = await _httpClient.PostAsJsonAsync("api/Account/login", user);
         response.EnsureSuccessStatusCode();
