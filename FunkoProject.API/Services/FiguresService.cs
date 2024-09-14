@@ -1,8 +1,8 @@
-﻿using FunkoApi.Entities;
-using FunkoApi.Exceptions;
-using static FunkoApi.Entities.FiguresDbConntext;
+﻿using FunkoProject.Entities;
+using FunkoProject.Exceptions;
+using static FunkoProject.Entities.FiguresDbConntext;
 
-namespace FunkoApi.Services
+namespace FunkoProject.Services
 {
     public class FiguresService
     {

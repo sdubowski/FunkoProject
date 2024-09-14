@@ -1,4 +1,4 @@
-﻿namespace FunkoApi.Entities
+﻿namespace FunkoProject.Entities
 {
     public class Figure
     {

@@ -1,4 +1,4 @@
-﻿namespace FunkoApi.Models
+﻿namespace FunkoProject.Models
 {
     public class RegisterFigureDto
     {

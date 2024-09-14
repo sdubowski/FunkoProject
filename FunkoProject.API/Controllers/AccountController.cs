@@ -1,8 +1,8 @@
-﻿using FunkoApi.Models;
+﻿using FunkoProject.Models;
 using Microsoft.AspNetCore.Mvc;
-using static FunkoApi.Services.AccountService;
+using static FunkoProject.Services.AccountService;
 
-namespace FunkoApi.Controllers
+namespace FunkoProject.Controllers
 {
     [ApiController]
     [Route("api/Account")]

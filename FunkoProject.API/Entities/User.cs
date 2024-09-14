@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace FunkoApi.Entities
+﻿namespace FunkoProject.Entities
 {
     public class User
     {

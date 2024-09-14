@@ -1,6 +1,6 @@
-﻿using FunkoApi.Exceptions;
+﻿using FunkoProject.Exceptions;
 
-namespace FunkoApi.Middleware
+namespace FunkoProject.Middleware
 {
     public class ErrorHandlingMiddleware : IMiddleware
     {

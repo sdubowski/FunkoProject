@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using FunkoApi.Entities;
-using FunkoApi.Models;
+using FunkoProject.Entities;
+using FunkoProject.Models;
 
-namespace FunkoApi
+namespace FunkoProject
 {
     public class FigureMappingProfile : Profile
     {

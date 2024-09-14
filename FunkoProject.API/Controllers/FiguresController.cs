@@ -1,9 +1,9 @@
-using FunkoApi.Entities;
-using FunkoApi.Models;
+using FunkoProject.Entities;
+using FunkoProject.Models;
 using Microsoft.AspNetCore.Mvc;
-using static FunkoApi.Services.FiguresService;
+using static FunkoProject.Services.FiguresService;
 
-namespace FunkoApi.Controllers
+namespace FunkoProject.Controllers
 {
     [ApiController]
     [Route("api/Figures")]

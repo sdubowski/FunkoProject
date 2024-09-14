@@ -1,4 +1,4 @@
-﻿namespace FunkoApi.Exceptions
+﻿namespace FunkoProject.Exceptions
 {
     public class NotFoundException : Exception
     {

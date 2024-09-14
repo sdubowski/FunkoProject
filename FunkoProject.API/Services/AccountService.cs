@@ -1,15 +1,16 @@
-﻿using FunkoApi.Entities;
-using FunkoApi.Exceptions;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
-using static FunkoApi.Entities.FiguresDbConntext;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using FunkoApi;
+using FunkoProject.Entities;
+using FunkoProject.Exceptions;
+using FunkoProject.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using FunkoApi.Models;
+using Microsoft.IdentityModel.Tokens;
+using static FunkoProject.Entities.FiguresDbConntext;
 
-namespace FunkoApi.Services
+namespace FunkoProject.Services
 {
     public class AccountService
     {

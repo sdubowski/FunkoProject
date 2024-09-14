@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using static FunkoApi.Entities.FiguresDbConntext;
+using static FunkoProject.Entities.FiguresDbConntext;
 
-namespace FunkoApi.Models.Validators
+namespace FunkoProject.Models.Validators
 {
     public class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
     {

@@ -3,15 +3,15 @@ using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using FunkoApi;
-using FunkoApi.Entities;
-using FunkoApi.Middleware;
-using FunkoApi.Models;
-using FunkoApi.Models.Validators;
-using static FunkoApi.Entities.FiguresDbConntext;
+using FunkoProject;
+using static FunkoProject.Entities.FiguresDbConntext;
 using NLog.Web;
-using static FunkoApi.Services.AccountService;
-using static FunkoApi.Services.FiguresService;
-using FunkoApi.Services;
+using static FunkoProject.Services.AccountService;
+using static FunkoProject.Services.FiguresService;
+using FunkoProject.Entities;
+using FunkoProject.Middleware;
+using FunkoProject.Models;
+using FunkoProject.Models.Validators;
 using Microsoft.Net.Http.Headers;
 
 namespace FunkoApi
@@ -57,7 +57,7 @@ namespace FunkoApi
             var app = builder.Build();
             
             app.UseCors(policy =>
-                policy.WithOrigins("http://localhost:7060", "https://localhost:7060")
+                policy.WithOrigins("https://localhost:7060")
                     .AllowAnyMethod()
                     .WithHeaders(HeaderNames.ContentType)
             );

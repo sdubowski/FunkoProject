@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace FunkoApi.Entities
+namespace FunkoProject.Entities
 {
     public class FiguresDbConntext
     {

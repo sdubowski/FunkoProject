@@ -1,4 +1,4 @@
-﻿namespace FunkoApi
+﻿namespace FunkoProject.Models
 {
     internal class FigureDto
     {
