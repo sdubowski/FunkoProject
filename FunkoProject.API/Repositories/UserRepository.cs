@@ -1,5 +1,6 @@
 ﻿using FunkoProject.Data;
 using FunkoProject.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace FunkoProject.Repositories;
 
@@ -18,7 +19,9 @@ public class UserRepository:IUserRepository
     
     public User Get(int userId)
     {
-        var user = _appDbContext.Users.FirstOrDefault(u => u.Id == userId);
-        return user;
+        return _appDbContext.Users
+            .Include(u => u.Friends)
+            .ThenInclude(uf => uf.Friend)
+            .First(u => u.Id == userId);
     }
 }

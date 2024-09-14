@@ -11,5 +11,14 @@
         public string? PasswordHash { get; set; }
         public int RoleId { get; set; }
         public virtual Role Role { get; set; }
+        
+        public virtual ICollection<UserFriend> Friends { get; set; }
+        public virtual ICollection<UserFriend> FriendOf { get; set; }
+
+        public User()
+        {
+            Friends = new HashSet<UserFriend>();
+            FriendOf = new HashSet<UserFriend>();
+        }
     }
 }

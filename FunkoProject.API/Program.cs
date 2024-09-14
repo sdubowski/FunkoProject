@@ -1,4 +1,5 @@
 using System.Text;
+using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -6,11 +7,14 @@ using FunkoApi.Models.ViewModels;
 using FunkoProject;
 using FunkoProject.Data;
 using FunkoProject.Data.Entities;
+using FunkoProject.Extensions;
 using NLog.Web;
 using static FunkoProject.Services.AccountService;
 using static FunkoProject.Services.FiguresService;
 using FunkoProject.Middleware;
 using FunkoProject.Models.Validators;
+using FunkoProject.Repositories;
+using FunkoProject.Services;
 using Microsoft.Net.Http.Headers;
 
 namespace FunkoApi
@@ -49,11 +53,18 @@ namespace FunkoApi
             builder.Services.AddScoped<ErrorHandlingMiddleware>();
             builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.ConfigureAutoMapper();
             builder.Host.UseNLog();
 
             var app = builder.Build();
+            
+            var mapper = app.Services.GetRequiredService<IMapper>();
+            MappingExtensions.MapperAccessor.Configure(mapper);
             
             app.UseCors(policy =>
                 policy.WithOrigins("https://localhost:7060")
