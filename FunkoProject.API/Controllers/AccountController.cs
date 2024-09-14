@@ -1,4 +1,4 @@
-﻿using FunkoApi.Models.ViewModels;
+using FunkoApi.Models.ViewModels;
 using FunkoProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +30,13 @@ namespace FunkoProject.Controllers
         {
             string token = _accountService.GenerateJwt(dto); 
             return Ok(token);
+        }
+        
+        [Authorize]
+        [HttpGet("validate-token")]
+        public IActionResult ValidateToken()
+        {
+            return Ok();
         }
     }
 }

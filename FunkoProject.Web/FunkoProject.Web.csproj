@@ -8,8 +8,16 @@
 
     <ItemGroup>
         <PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.33" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.5"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.33" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.5" PrivateAssets="all"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Shared\MainLayout.razor.cs">
+        <DependentUpon>MainLayout.razor</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>
