@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using FunkoApi;
+using FunkoApi.Models.ViewModels;
 using FunkoProject.Entities;
 using FunkoProject.Exceptions;
 using FunkoProject.Models;

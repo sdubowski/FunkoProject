@@ -1,4 +1,4 @@
-﻿namespace FunkoProject.Models
+﻿namespace FunkoApi.Models.ViewModels
 {
     public class RegisterUserDto
     {
