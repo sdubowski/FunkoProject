@@ -1,4 +1,4 @@
-﻿namespace FunkoProject.Entities
+﻿namespace FunkoProject.Data.Entities
 {
     public class Role
     {

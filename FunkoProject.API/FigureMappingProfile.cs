@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FunkoProject.Entities;
+using FunkoProject.Data.Entities;
 using FunkoProject.Models;
 
 namespace FunkoProject

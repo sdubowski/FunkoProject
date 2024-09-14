@@ -1,4 +1,4 @@
-using FunkoProject.Entities;
+using FunkoProject.Data.Entities;
 using FunkoProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using static FunkoProject.Services.FiguresService;

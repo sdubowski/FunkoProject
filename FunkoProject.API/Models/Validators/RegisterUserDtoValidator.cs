@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
 using FunkoApi.Models.ViewModels;
-using static FunkoProject.Entities.FiguresDbConntext;
+using FunkoProject.Data;
 
 namespace FunkoProject.Models.Validators
 {
     public class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
     {
-        public RegisterUserDtoValidator(FigurestDbContext dbContext)
+        public RegisterUserDtoValidator(AppDbContext dbContext)
         {
             RuleFor(x => x.Email)
                 .NotEmpty()

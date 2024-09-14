@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using FunkoApi.Models.ViewModels;
 using FunkoProject;
-using static FunkoProject.Entities.FiguresDbConntext;
+using FunkoProject.Data;
+using FunkoProject.Data.Entities;
 using NLog.Web;
 using static FunkoProject.Services.AccountService;
 using static FunkoProject.Services.FiguresService;
-using FunkoProject.Entities;
 using FunkoProject.Middleware;
 using FunkoProject.Models.Validators;
 using Microsoft.Net.Http.Headers;
@@ -42,7 +42,7 @@ namespace FunkoApi
             });
             builder.Services.AddSingleton(authenticationSettings);
             builder.Services.AddControllers();
-            builder.Services.AddDbContext<FigurestDbContext>();
+            builder.Services.AddDbContext<AppDbContext>();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddScoped<IAccountServices, AccountServices>();
             builder.Services.AddScoped<IFiguresService, FiguresServices>();
@@ -65,11 +65,11 @@ namespace FunkoApi
             app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseAuthentication();
             var scope = app.Services.CreateScope();
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+            // if (app.Environment.IsDevelopment())
+            // {
+            //     app.UseSwagger();
+            //     app.UseSwaggerUI();
+            // }
             app.UseHttpsRedirection();
 
             app.UseAuthorization();

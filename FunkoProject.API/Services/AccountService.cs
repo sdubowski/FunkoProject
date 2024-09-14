@@ -3,13 +3,13 @@ using System.Security.Claims;
 using System.Text;
 using FunkoApi;
 using FunkoApi.Models.ViewModels;
-using FunkoProject.Entities;
+using FunkoProject.Data;
+using FunkoProject.Data.Entities;
 using FunkoProject.Exceptions;
 using FunkoProject.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using static FunkoProject.Entities.FiguresDbConntext;
 
 namespace FunkoProject.Services
 {
@@ -22,11 +22,11 @@ namespace FunkoProject.Services
         }
         public class AccountServices : IAccountServices
         {
-            private readonly FigurestDbContext _context;
+            private readonly AppDbContext _context;
             private readonly IPasswordHasher<User> _passwordHasher;
             private readonly AuthenticationSettings _authenticationSettings;
 
-            public AccountServices(FigurestDbContext context, IPasswordHasher<User> passwordHasher, AuthenticationSettings authenticationSettings)
+            public AccountServices(AppDbContext context, IPasswordHasher<User> passwordHasher, AuthenticationSettings authenticationSettings)
             {
                 _context = context;
                 _passwordHasher = passwordHasher;

@@ -1,6 +1,6 @@
-﻿using FunkoProject.Entities;
+﻿using FunkoProject.Data;
+using FunkoProject.Data.Entities;
 using FunkoProject.Exceptions;
-using static FunkoProject.Entities.FiguresDbConntext;
 
 namespace FunkoProject.Services
 {
@@ -16,8 +16,8 @@ namespace FunkoProject.Services
 
         public class FiguresServices : IFiguresService 
         {
-            private readonly FigurestDbContext _context;
-            public FiguresServices(FigurestDbContext context)
+            private readonly AppDbContext _context;
+            public FiguresServices(AppDbContext context)
             {
                 _context = context;
             }
