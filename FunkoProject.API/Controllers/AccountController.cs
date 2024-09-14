@@ -1,4 +1,5 @@
 ﻿using FunkoProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static FunkoProject.Services.AccountService;
 
@@ -27,6 +28,13 @@ namespace FunkoProject.Controllers
         {
             string token = _accountService.GenerateJwt(dto); 
             return Ok(token);
+        }
+        
+        [Authorize]
+        [HttpGet("validate-token")]
+        public IActionResult ValidateToken()
+        {
+            return Ok();
         }
     }
 }

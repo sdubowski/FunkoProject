@@ -18,9 +18,9 @@ public class LoginPageBase : ComponentBase
         try
         {
             var token = await _accountService.Login(LoginViewModel);
-            
+        
             await _localStorage.SetItemAsync("accessToken", token);
-            // NavigationManager.NavigateTo("/");  // Przekieruj na stronę główną po zalogowaniu
+            _navigationManager.NavigateTo("/", true);
         }
         catch (HttpRequestException e)
         {
