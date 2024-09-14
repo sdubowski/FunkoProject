@@ -12,6 +12,7 @@ using NLog.Web;
 using static FunkoApi.Services.AccountService;
 using static FunkoApi.Services.FiguresService;
 using FunkoApi.Services;
+using Microsoft.Net.Http.Headers;
 
 namespace FunkoApi
 {
@@ -54,6 +55,13 @@ namespace FunkoApi
             builder.Host.UseNLog();
 
             var app = builder.Build();
+            
+            app.UseCors(policy =>
+                policy.WithOrigins("http://localhost:7060", "https://localhost:7060")
+                    .AllowAnyMethod()
+                    .WithHeaders(HeaderNames.ContentType)
+            );
+            
             // Configure the HTTP request pipeline.
             app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseAuthentication();
