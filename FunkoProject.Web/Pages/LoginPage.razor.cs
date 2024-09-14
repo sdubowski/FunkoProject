@@ -19,7 +19,7 @@ public class LoginPageBase : ComponentBase
         {
             var token = await _accountService.Login(LoginViewModel);
             
-            await _localStorage.SetItemAsync("authToken", token);
+            await _localStorage.SetItemAsync("accessToken", token);
             // NavigationManager.NavigateTo("/");  // Przekieruj na stronę główną po zalogowaniu
         }
         catch (HttpRequestException e)
