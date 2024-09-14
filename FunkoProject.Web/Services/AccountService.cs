@@ -7,7 +7,12 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
-public class AccountService
+public interface IAccountService
+{
+    Task<string> Login(LoginViewModel loginViewModel);
+}
+
+public class AccountService:IAccountService
 {
     private readonly HttpClient _httpClient;
 
@@ -16,9 +21,9 @@ public class AccountService
         _httpClient = httpClient;
     }
 
-    public async Task<string> Login(LoginViewModel user)
+    public async Task<string> Login(LoginViewModel loginViewModel)
     {
-        var response = await _httpClient.PostAsJsonAsync("api/Account/login", user);
+        var response = await _httpClient.PostAsJsonAsync("api/Account/login", loginViewModel);
         response.EnsureSuccessStatusCode();
         return await response.Content.ReadAsStringAsync();
     }
