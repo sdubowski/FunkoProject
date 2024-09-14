@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using FunkoApi.Models.ViewModels;
 using static FunkoProject.Entities.FiguresDbConntext;
 
 namespace FunkoProject.Models.Validators

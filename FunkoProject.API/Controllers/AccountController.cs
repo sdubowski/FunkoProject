@@ -1,4 +1,5 @@
-﻿using FunkoProject.Models;
+using FunkoApi.Models.ViewModels;
+using FunkoProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static FunkoProject.Services.AccountService;
@@ -16,6 +17,7 @@ namespace FunkoProject.Controllers
             _accountService = accountService;
         }
 
+        [AllowAnonymous]
         [HttpPost("register")]
         public ActionResult RegisterUser([FromBody] RegisterUserDto dto)
         {

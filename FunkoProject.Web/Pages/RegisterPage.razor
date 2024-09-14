@@ -1,0 +1,40 @@
+﻿@page "/register"
+
+<div class="container mt-5">
+    <h2 class="mb-4">Rejestracja</h2>
+    <EditForm Model="@model" OnValidSubmit="HandleRegistration">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <InputText id="email" class="form-control" @bind-Value="model.Email"/>
+            <ValidationMessage For="@(() => model.Email)" />
+        </div>
+        <div class="mb-3">
+            <label for="dateOfBirth" class="form-label">Data urodzenia</label>
+            <InputDate id="dateOfBirth" class="form-control" @bind-Value="model.DateOfBirth" />
+            <ValidationMessage For="@(() => model.DateOfBirth)" />
+        </div>
+        <div class="mb-3">
+            <label for="nationality" class="form-label">Narodowość</label>
+            <InputText id="nationality" class="form-control" @bind-Value="model.Nationality"/>
+            <ValidationMessage For="@(() => model.Nationality)" />
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Hasło</label>
+            <InputText type="password" id="password" class="form-control" @bind-Value="model.Password"/>
+            <ValidationMessage For="@(() => model.Password)" />
+        </div>
+        <div class="mb-3">
+            <label for="confirmPassword" class="form-label">Potwierdź hasło</label>
+            <InputText type="password" id="confirmPassword" class="form-control" @bind-Value="model.ConfirmPassword"/>
+            <ValidationMessage For="@(() => model.ConfirmPassword)" />
+        </div>
+        <button type="submit" class="btn btn-primary" disabled="@(!context.Validate() || !context.IsModified())">Zarejestruj</button>
+    </EditForm>
+</div>
+
+<div id="toast" class="toast-message @(showToast ? "show" : "")">
+    Rejestracja Udana!
+</div>

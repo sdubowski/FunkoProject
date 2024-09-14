@@ -2,7 +2,7 @@ using System.Text;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using FunkoApi;
+using FunkoApi.Models.ViewModels;
 using FunkoProject;
 using static FunkoProject.Entities.FiguresDbConntext;
 using NLog.Web;
@@ -10,7 +10,6 @@ using static FunkoProject.Services.AccountService;
 using static FunkoProject.Services.FiguresService;
 using FunkoProject.Entities;
 using FunkoProject.Middleware;
-using FunkoProject.Models;
 using FunkoProject.Models.Validators;
 using Microsoft.Net.Http.Headers;
 
