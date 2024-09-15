@@ -9,11 +9,11 @@ namespace FunkoProject.Services;
         User GetUserById(string id);
     }
 
-    public class UserServices: IUserService
+    public class UserService: IUserService
     {
         private readonly AppDbContext _context;
 
-        public UserServices(AppDbContext context)
+        public UserService(AppDbContext context)
         {
             _context = context;
         }
