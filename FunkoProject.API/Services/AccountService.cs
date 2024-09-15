@@ -13,8 +13,6 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace FunkoProject.Services
 {
-    public class AccountService
-    {
         public interface IAccountServices
         {
             public void RegiserUser(RegisterUserDto dto);
@@ -81,5 +79,4 @@ namespace FunkoProject.Services
                 return tokenHandler.WriteToken(token);
             }
         }
-    }
 }

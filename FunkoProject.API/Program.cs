@@ -9,8 +9,6 @@ using FunkoProject.Data;
 using FunkoProject.Data.Entities;
 using FunkoProject.Extensions;
 using NLog.Web;
-using static FunkoProject.Services.AccountService;
-using static FunkoProject.Services.FiguresService;
 using FunkoProject.Middleware;
 using FunkoProject.Models.Validators;
 using FunkoProject.Repositories;

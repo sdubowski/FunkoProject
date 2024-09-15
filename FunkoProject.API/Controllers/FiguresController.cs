@@ -1,7 +1,7 @@
 using FunkoProject.Data.Entities;
 using FunkoProject.Models;
+using FunkoProject.Services;
 using Microsoft.AspNetCore.Mvc;
-using static FunkoProject.Services.FiguresService;
 
 namespace FunkoProject.Controllers
 {

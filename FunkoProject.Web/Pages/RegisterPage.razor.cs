@@ -1,6 +1,7 @@
 ﻿using FunkoProject.Web.Models.ViewModels;
 using FunkoProject.Web.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace FunkoProject.Web.Pages
 {
@@ -9,6 +10,7 @@ namespace FunkoProject.Web.Pages
         private RegisterViewModel model = new();
         private bool _isRegistered = false;
         private bool showToast = false;
+        private EditContext context;
 
         [Inject]
         private IAccountService _accountService {  get; set; }
@@ -29,6 +31,8 @@ namespace FunkoProject.Web.Pages
             {
                 showToast = true;
                 StateHasChanged();
+
+                ResetForm();
                 
                 await Task.Delay(3000);
                 showToast = false;
@@ -36,6 +40,13 @@ namespace FunkoProject.Web.Pages
             }
 
             NavigationManager.NavigateTo("/");
+        }
+        
+        private void ResetForm()
+        {
+            model = new RegisterViewModel();
+            context = new EditContext(model);
+            _isRegistered = false;
         }
     }
 }

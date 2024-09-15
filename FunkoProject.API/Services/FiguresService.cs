@@ -4,8 +4,6 @@ using FunkoProject.Exceptions;
 
 namespace FunkoProject.Services
 {
-    public class FiguresService
-    {
         public interface IFiguresService
         {
             public Figure GetById(string id);
@@ -77,6 +75,4 @@ namespace FunkoProject.Services
                 return figure;
             }
         }
-
-    }
 }
