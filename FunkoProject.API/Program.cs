@@ -7,10 +7,9 @@ using FunkoProject;
 using FunkoProject.Data;
 using FunkoProject.Data.Entities;
 using NLog.Web;
-using static FunkoProject.Services.AccountService;
-using static FunkoProject.Services.FiguresService;
 using FunkoProject.Middleware;
 using FunkoProject.Models.Validators;
+using FunkoProject.Services;
 using Microsoft.Net.Http.Headers;
 
 namespace FunkoApi
@@ -46,6 +45,7 @@ namespace FunkoApi
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddScoped<IAccountServices, AccountServices>();
             builder.Services.AddScoped<IFiguresService, FiguresServices>();
+            builder.Services.AddScoped<IUserService, UserServices>();
             builder.Services.AddScoped<ErrorHandlingMiddleware>();
             builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();

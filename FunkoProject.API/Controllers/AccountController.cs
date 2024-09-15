@@ -1,8 +1,8 @@
 using FunkoApi.Models.ViewModels;
 using FunkoProject.Models;
+using FunkoProject.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using static FunkoProject.Services.AccountService;
 
 namespace FunkoProject.Controllers
 {
@@ -22,7 +22,7 @@ namespace FunkoProject.Controllers
         public ActionResult RegisterUser([FromBody] RegisterUserDto dto)
         {
             _accountService.RegiserUser(dto);
-            return Ok();
+            return Ok("success");
         }
 
         [HttpPost("login")]

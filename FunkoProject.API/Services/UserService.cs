@@ -1,25 +1,31 @@
-﻿using FunkoProject.Data.Entities;
-using FunkoProject.Models;
-using FunkoProject.Repositories;
+using FunkoProject.Data;
+using FunkoProject.Data.Entities;
+using FunkoProject.Exceptions;
 
 namespace FunkoProject.Services;
 
-public interface IUserService
-{
-    User GetUser(int userId);
-}
-
-public class UserService: IUserService
-{
-    private static IUserRepository _userRepository;
-
-    public UserService(IUserRepository userRepository)
+    public interface IUserService
     {
-        _userRepository = userRepository;
+        User GetUserById(string id);
     }
-    
-    public User GetUser(int userId)
+
+    public class UserServices: IUserService
     {
-        return _userRepository.Get(userId);
+        private readonly AppDbContext _context;
+
+        public UserServices(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        public User GetUserById(string id)
+        {
+            var idAsInt = Int32.Parse(id);
+            var user = _context.Users.FirstOrDefault(u => u.Id == idAsInt);
+            if (user == null)
+            {
+                throw new NotFoundException("User not found");
+            }
+            return user;
+        }
     }
-}
