@@ -1,4 +1,4 @@
-﻿using FunkoProject.Data.Entities;
+using FunkoProject.Data.Entities;
 using FunkoProject.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
