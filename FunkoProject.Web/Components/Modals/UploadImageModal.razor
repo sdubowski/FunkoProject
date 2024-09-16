@@ -1,0 +1,41 @@
+﻿@page "/file-upload"
+@inherits UploadImageModalBase
+
+<div class="modal show d-block" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Zmień zdjęcie profilowe</h5>
+                <button type="button" class="close" @onclick="HandleCancel" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3>Wybierz zdjęcie</h3>
+                <div class="custom-file-upload">
+                    <label for="file-upload" class="custom-file-label">
+                        <i class="fas fa-cloud-upload-alt"></i> Wybierz plik
+                    </label>
+                    <InputFile id="file-upload" OnChange="HandleFileSelected" hidden />
+                </div>
+                @if (IsFileSelected)
+                {
+                <div class="file-info">
+                    <p class="file-name">Wybrany plik: @FileModel.FileName</p>
+                    <button class="btn-remove" @onclick="RemoveFile">Usuń plik</button>
+                </div>
+                }
+                <div class="upload-button-container">
+                    <button class="btn btn-primary" @onclick="UploadFile" disabled="@(!IsFileSelected || string.IsNullOrEmpty(UserId))">Upload</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" @onclick="HandleCancel">Anuluj</button>
+                <button type="button" class="btn btn-primary" @onclick="UploadFile">Zapisz</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal backdrop -->
+<div class="modal-backdrop fade show"></div>

@@ -1,4 +1,6 @@
 using System.Text;
+using Amazon;
+using Amazon.S3;
 using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
@@ -53,7 +55,16 @@ namespace FunkoApi
             builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
-            
+            builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
+            builder.Services.AddAWSService<IAmazonS3>();
+            builder.Services.AddSingleton<IAmazonS3>(sp =>
+            {
+                var configuration = sp.GetRequiredService<IConfiguration>();
+                var accessKey = configuration["AWS:AccessKey"];
+                var secretKey = configuration["AWS:SecretKey"];
+                var region = RegionEndpoint.GetBySystemName(configuration["AWS:Region"]);
+                return new AmazonS3Client(accessKey, secretKey, region);
+            });
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.ConfigureAutoMapper();

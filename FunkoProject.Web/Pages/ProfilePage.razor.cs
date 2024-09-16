@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using FunkoProject.Web.Enums;
 using FunkoProject.Web.Models;
 using FunkoProject.Web.Services;
 using Microsoft.AspNetCore.Components;
@@ -9,6 +10,7 @@ public partial class ProfilePage : ComponentBase
 {
     private User user = new User();
     private bool isEditModalOpen = false;
+    private bool isUploadModalOpen = false;
     [Inject]
     private IUserService UserService { get; set; }
 
@@ -17,14 +19,30 @@ public partial class ProfilePage : ComponentBase
         user = await UserService.GetUserAsync();
     }
 
-    private void OpenEditModal()
+    private void OpenEditModal(ModalType modalType)
     {
-        isEditModalOpen = true;
+        switch (modalType)
+        {
+            case ModalType.Edit:
+                isEditModalOpen = true;
+                break;
+            case ModalType.Upload:
+                isUploadModalOpen = true;
+                break;
+        }
     }
 
-    private void CloseEditModal()
+    private void CloseEditModal(ModalType modalType)
     {
-        isEditModalOpen = false;
+        switch (modalType)
+        {
+            case ModalType.Edit:
+                isEditModalOpen = false;
+                break;
+            case ModalType.Upload:
+                isUploadModalOpen = false;
+                break;
+        }
     }
 
     private async Task SaveChanges()
