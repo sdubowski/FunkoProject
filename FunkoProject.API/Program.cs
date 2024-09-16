@@ -49,13 +49,7 @@ namespace FunkoApi
             builder.Services.AddControllers();
             builder.Services.AddDbContext<AppDbContext>();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            builder.Services.AddScoped<IAccountServices, AccountServices>();
-            builder.Services.AddScoped<IFiguresService, FiguresServices>();
             builder.Services.AddScoped<ErrorHandlingMiddleware>();
-            builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
-            builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
-            builder.Services.AddScoped<IUserService, UserService>();
-            builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
             builder.Services.AddAWSService<IAmazonS3>();
             builder.Services.AddSingleton<IAmazonS3>(sp =>

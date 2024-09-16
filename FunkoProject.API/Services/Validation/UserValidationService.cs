@@ -1,14 +1,15 @@
-﻿using FunkoProject.Common.Enums;
+﻿using FunkoProject.Common.Atributes;
+using FunkoProject.Common.Enums;
 using FunkoProject.Data.Entities;
 using FunkoProject.Models;
 
 namespace FunkoProject.Services.Validation;
 
+[Injectable]
 public interface IUserValidationService
 {
     List<ErrorMessage> ValidateFriend(UserModel user, UserModel friend);
 }
-[Injectable]
 public class UserValidationService: IUserValidationService
 {
     public List<ErrorMessage> ValidateFriend(UserModel user, UserModel friend)

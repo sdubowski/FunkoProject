@@ -1,8 +1,8 @@
-﻿using FunkoProject.Exceptions;
+﻿using FunkoProject.Common.Atributes;
+using FunkoProject.Exceptions;
 
 namespace FunkoProject.Middleware;
 
-[Injectable]
 public class ErrorHandlingMiddleware : IMiddleware
 {
     private readonly ILogger<ErrorHandlingMiddleware> _logger;

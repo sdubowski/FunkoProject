@@ -1,10 +1,12 @@
 ﻿using System.Runtime.InteropServices;
+using FunkoProject.Common.Atributes;
 using FunkoProject.Data;
 using FunkoProject.Data.Entities;
 using FunkoProject.Exceptions;
 
 namespace FunkoProject.Services;
 
+[Injectable]
 public interface IFiguresService
 {
     public Figure GetById(string id);
@@ -13,7 +15,6 @@ public interface IFiguresService
     public void EditFigure(Figure figure);
 }
 
-[Injectable]
 public class FiguresServices : IFiguresService
 {
     private readonly AppDbContext _context;

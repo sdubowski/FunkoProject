@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using FunkoApi.Models.ViewModels;
+using FunkoProject.Common.Atributes;
 using FunkoProject.Data;
 using FunkoProject.Data.Entities;
 using FunkoProject.Exceptions;
@@ -12,13 +13,12 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace FunkoProject.Services;
 
+[Injectable]
 public interface IAccountServices
 {
     public void RegiserUser(RegisterUserDto dto);
     public string GenerateJwt(LoginDto dto);
 }
-
-[Injectable]
 public class AccountServices : IAccountServices
 {
     private readonly AppDbContext _context;

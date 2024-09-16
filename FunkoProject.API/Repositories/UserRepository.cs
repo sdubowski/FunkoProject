@@ -1,17 +1,18 @@
-﻿using FunkoProject.Data;
+﻿using FunkoProject.Common.Atributes;
+using FunkoProject.Data;
 using FunkoProject.Data.Entities;
 using FunkoProject.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FunkoProject.Repositories;
 
+[Injectable]
 public interface IUserRepository
 {
     User Get(int userId);   
     void AddFriend(User user, User friend);
     void SaveChanges();
 }
-[Injectable]
 public class UserRepository:IUserRepository
 {
     private readonly AppDbContext _appDbContext;

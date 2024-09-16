@@ -1,3 +1,4 @@
+using FunkoProject.Common.Atributes;
 using FunkoProject.Data.Entities;
 using FunkoProject.Exceptions;
 using FunkoProject.Extensions;
@@ -7,13 +8,13 @@ using FunkoProject.Services.Validation;
 
 namespace FunkoProject.Services;
 
+[Injectable]
 public interface IUserService
 {
     UserModel GetUserById(int userId);
     ServiceMessage<User> AddFriend(int userId, int friendId);
 }
 
-[Injectable]
 public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
