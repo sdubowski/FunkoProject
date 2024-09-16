@@ -10,8 +10,7 @@ public class UserModel
     public string? LastName { get; set; }
     public DateTime? DateOfBirth { get; set; }
     public string? Nationality { get; set; }
-    public string? PasswordHash { get; set; }
     public int RoleId { get; set; }
     public Role? Role {get;set;}
-    public List<User> Friends {get;set;} = new();
+    public List<UserModel> Friends {get;set;} = new();
 }

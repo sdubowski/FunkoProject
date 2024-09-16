@@ -6,12 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace FunkoProject.Controllers
 {
     [ApiController]
-    [Route("api/Figures")]
-    public class FiguresController : ControllerBase
+    [Route("api/Figure")]
+    public class FigureController : ControllerBase
     {
         private readonly IFiguresService _figuresService;
 
-        public FiguresController(IFiguresService figuresService)
+        public FigureController(IFiguresService figuresService)
         {
             _figuresService = figuresService;
         }

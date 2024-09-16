@@ -22,7 +22,7 @@ namespace FunkoApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("FunkoApi.Entities.Figure", b =>
+            modelBuilder.Entity("FunkoProject.Data.Entities.Figure", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -51,7 +51,7 @@ namespace FunkoApi.Migrations
                     b.ToTable("Figures");
                 });
 
-            modelBuilder.Entity("FunkoApi.Entities.Role", b =>
+            modelBuilder.Entity("FunkoProject.Data.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -68,7 +68,7 @@ namespace FunkoApi.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("FunkoApi.Entities.User", b =>
+            modelBuilder.Entity("FunkoProject.Data.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -105,15 +105,56 @@ namespace FunkoApi.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("FunkoApi.Entities.User", b =>
+            modelBuilder.Entity("FunkoProject.Data.Entities.UserFriend", b =>
                 {
-                    b.HasOne("FunkoApi.Entities.Role", "Role")
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FriendId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "FriendId");
+
+                    b.HasIndex("FriendId");
+
+                    b.ToTable("UserFriends");
+                });
+
+            modelBuilder.Entity("FunkoProject.Data.Entities.User", b =>
+                {
+                    b.HasOne("FunkoProject.Data.Entities.Role", "Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("FunkoProject.Data.Entities.UserFriend", b =>
+                {
+                    b.HasOne("FunkoProject.Data.Entities.User", "Friend")
+                        .WithMany("FriendOf")
+                        .HasForeignKey("FriendId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("FunkoProject.Data.Entities.User", "User")
+                        .WithMany("Friends")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Friend");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("FunkoProject.Data.Entities.User", b =>
+                {
+                    b.Navigation("FriendOf");
+
+                    b.Navigation("Friends");
                 });
 #pragma warning restore 612, 618
         }

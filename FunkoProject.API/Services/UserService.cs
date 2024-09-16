@@ -1,31 +1,56 @@
-using FunkoProject.Data;
 using FunkoProject.Data.Entities;
 using FunkoProject.Exceptions;
+using FunkoProject.Extensions;
+using FunkoProject.Models;
+using FunkoProject.Repositories;
+using FunkoProject.Services.Validation;
 
 namespace FunkoProject.Services;
 
-    public interface IUserService
+public interface IUserService
+{
+    UserModel GetUserById(int userId);
+    ServiceMessage<User> AddFriend(int userId, int friendId);
+}
+
+[Injectable]
+public class UserService : IUserService
+{
+    private readonly IUserRepository _userRepository;
+    private readonly IUserValidationService _userValidationService;
+
+    public UserService(IUserRepository userRepository, IUserValidationService userValidationService)
     {
-        User GetUserById(string id);
+        _userRepository = userRepository;
+        _userValidationService = userValidationService;
     }
 
-    public class UserService: IUserService
+    public UserModel GetUserById(int userId)
     {
-        private readonly AppDbContext _context;
-
-        public UserService(AppDbContext context)
+        var user = _userRepository.Get(userId).ToModel<User, UserModel>();
+        if (user == null)
         {
-            _context = context;
+            throw new NotFoundException("User not found");
         }
 
-        public User GetUserById(string id)
-        {
-            var idAsInt = Int32.Parse(id);
-            var user = _context.Users.FirstOrDefault(u => u.Id == idAsInt);
-            if (user == null)
-            {
-                throw new NotFoundException("User not found");
-            }
-            return user;
-        }
+        return user;
     }
+
+    public ServiceMessage<User> AddFriend(int userId, int friendId)
+    {
+        var serviceMessage = new ServiceMessage<User>();
+        var userModel = GetUserById(userId);
+        var friendModel = GetUserById(friendId);
+        var errorMessages = _userValidationService.ValidateFriend(userModel, friendModel);
+        if (!errorMessages.Any())
+        {
+            _userRepository.AddFriend(userModel.ToEntity<UserModel, User>(), friendModel.ToEntity<UserModel, User>());
+        }
+        else
+        {
+            serviceMessage.ErrorMessages.AddRange(errorMessages);
+        }
+
+        return serviceMessage;
+    }
+}

@@ -13,6 +13,7 @@ using FunkoProject.Middleware;
 using FunkoProject.Models.Validators;
 using FunkoProject.Repositories;
 using FunkoProject.Services;
+using FunkoProject.Services.Validation;
 using Microsoft.Net.Http.Headers;
 
 namespace FunkoApi
@@ -53,6 +54,7 @@ namespace FunkoApi
             builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUserValidationService, UserValidationService>();
             
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

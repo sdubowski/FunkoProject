@@ -32,7 +32,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="Funko.Api.csproj" />
+      <Folder Include="Common\Utils\" />
     </ItemGroup>
 
 </Project>

@@ -1,5 +1,6 @@
 ﻿using FunkoProject.Data;
 using FunkoProject.Data.Entities;
+using FunkoProject.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FunkoProject.Repositories;
@@ -7,7 +8,10 @@ namespace FunkoProject.Repositories;
 public interface IUserRepository
 {
     User Get(int userId);   
+    void AddFriend(User user, User friend);
+    void SaveChanges();
 }
+[Injectable]
 public class UserRepository:IUserRepository
 {
     private readonly AppDbContext _appDbContext;
@@ -23,5 +27,17 @@ public class UserRepository:IUserRepository
             .Include(u => u.Friends)
             .ThenInclude(uf => uf.Friend)
             .First(u => u.Id == userId);
+    }
+
+    public void AddFriend(User user, User friend)
+    {
+        user.Friends.Add(new UserFriend { UserId = user.Id, FriendId = friend.Id });
+        friend.FriendOf.Add(new UserFriend { UserId = user.Id, FriendId = friend.Id });
+        SaveChanges();
+    }
+
+    public void SaveChanges()
+    {
+        _appDbContext.SaveChanges();
     }
 }
