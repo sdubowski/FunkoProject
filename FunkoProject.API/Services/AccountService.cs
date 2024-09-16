@@ -1,7 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using FunkoApi;
 using FunkoApi.Models.ViewModels;
 using FunkoProject.Data;
 using FunkoProject.Data.Entities;
