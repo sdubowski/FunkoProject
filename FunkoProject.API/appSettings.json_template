@@ -1,6 +1,6 @@
-{
+﻿{
   "Authentication": {
-    "JwtKey": "PRIVATE_KEY_DONT_SHARE123123123123123123",
+    "JwtKey": "",
     "JwtExpireDays": "15",
     "JwtIssuer": "http:\\funkoapi.com"
   },
@@ -10,5 +10,10 @@
       "Microsoft.AspNetCore": "Warning"
     }
   },
-  "AllowedHosts": "*"
+  "AllowedHosts": "*",
+  "AWS": {
+    "Region": "",
+    "AccessKey": "",
+    "SecretKey": ""
+  }
 }
