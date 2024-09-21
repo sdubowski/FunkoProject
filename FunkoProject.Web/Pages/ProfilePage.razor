@@ -17,17 +17,17 @@
             <p><strong>Data urodzenia:</strong> @user.DateOfBirth.ToString()</p>
             <p><strong>Ilość figurek:</strong> @user.Id</p>
 
-            <button class="btn btn-primary" @onclick="() => OpenEditModal(ModalType.Edit)">Edytuj profil</button>
-            <button class="btn btn-primary" @onclick="() => OpenEditModal(ModalType.Upload)">Zmień zdjęcie</button>
+            <button class="btn btn-primary" @onclick="() => OpenEditModal(ModalTypeEnum.Edit)">Edytuj profil</button>
+            <button class="btn btn-primary" @onclick="() => OpenEditModal(ModalTypeEnum.Upload)">Zmień zdjęcie</button>
         </div>
     </div>
     
 @if (isEditModalOpen)
     {
-        <UserEditModal User="user" OnSave="SaveChanges" OnCancel="() => CloseEditModal(ModalType.Edit)" />
+        <UserEditModal User="user" OnSave="SaveChanges" OnCancel="() => CloseEditModal(ModalTypeEnum.Edit)" />
     }
 @if (isUploadModalOpen)
     {
-        <UploadImageModal UserId="@user.Id.ToString()" OnCancel="() => CloseEditModal(ModalType.Upload)"></UploadImageModal> 
+        <UploadImageModal UserId="@user.Id.ToString()" OnCancel="() => CloseEditModal(ModalTypeEnum.Upload)"></UploadImageModal> 
     }
 </div>

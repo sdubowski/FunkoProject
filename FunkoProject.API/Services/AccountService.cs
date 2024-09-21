@@ -13,7 +13,6 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace FunkoProject.Services;
 
-[Injectable]
 public interface IAccountServices
 {
     public void RegiserUser(RegisterUserDto dto);

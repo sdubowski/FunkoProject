@@ -1,6 +1,7 @@
 ﻿using Amazon.S3;
-using Amazon.S3.Model;
 using FunkoProject.Data.Entities;
+using FunkoProject.Exceptions;
+using FunkoProject.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FunkoProject.Controllers;
@@ -9,43 +10,36 @@ namespace FunkoProject.Controllers;
 [Route("api/files")]
 public class FileController : ControllerBase
 {
-    private readonly IAmazonS3 _s3Client;
-    public FileController(IAmazonS3 s3Client)
+    private readonly IFileService _fileService;
+    public FileController(IFileService fileService)
     {
-        _s3Client = s3Client;
+        _fileService = fileService;
     }
     
     [HttpPost]
     [Route("UploadFile")]
     public async Task<IActionResult> UploadFile([FromBody]FileModel file)
     {
-        if (file == null || file.Content == null || file.Content.Length == 0)
+        var (isSuccess, message) = await _fileService.UploadFileAsync(file);
+        if (isSuccess)
         {
-            return BadRequest("Brak pliku lub plik jest pusty.");
+            return Ok(new { Message = message });
         }
+        return BadRequest(message);
+    }
 
-        var bucketName = "funko-project-bucket";
-        var key = file.FileName;
-
+    [HttpGet("download/{fileName}")]
+    public async Task<FileModel> DownloadFile(string fileName)
+    {
         try
         {
-            using (var stream = new MemoryStream(file.Content))
-            {
-                var putRequest = new PutObjectRequest
-                {
-                    BucketName = bucketName,
-                    Key = key,
-                    InputStream = stream,
-                    ContentType = file.ContentType
-                };
-
-                var response = await _s3Client.PutObjectAsync(putRequest);
-                return Ok(new { Message = "Plik został pomyślnie przesłany do S3.", FileName = key });
-            }
+            var file = await _fileService.DownloadFileAsync(fileName, "1");
+            return file;
         }
-        catch (Exception ex)
+        catch (AmazonS3Exception e)
         {
-            return StatusCode(500, $"Wystąpił błąd przy przesyłaniu pliku: {ex.Message}");
+            throw new BadRequestException(e.Message);
         }
     }
+    
 }

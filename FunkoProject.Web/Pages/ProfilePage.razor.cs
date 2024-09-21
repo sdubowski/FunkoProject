@@ -19,27 +19,27 @@ public partial class ProfilePage : ComponentBase
         user = await UserService.GetUserAsync();
     }
 
-    private void OpenEditModal(ModalType modalType)
+    private void OpenEditModal(ModalTypeEnum modalTypeEnum)
     {
-        switch (modalType)
+        switch (modalTypeEnum)
         {
-            case ModalType.Edit:
+            case ModalTypeEnum.Edit:
                 isEditModalOpen = true;
                 break;
-            case ModalType.Upload:
+            case ModalTypeEnum.Upload:
                 isUploadModalOpen = true;
                 break;
         }
     }
 
-    private void CloseEditModal(ModalType modalType)
+    private void CloseEditModal(ModalTypeEnum modalTypeEnum)
     {
-        switch (modalType)
+        switch (modalTypeEnum)
         {
-            case ModalType.Edit:
+            case ModalTypeEnum.Edit:
                 isEditModalOpen = false;
                 break;
-            case ModalType.Upload:
+            case ModalTypeEnum.Upload:
                 isUploadModalOpen = false;
                 break;
         }

@@ -1,6 +1,6 @@
 ﻿namespace FunkoProject.Web.Enums;
 
-public enum ModalType
+public enum ModalTypeEnum
 {
     None,
     Edit,
