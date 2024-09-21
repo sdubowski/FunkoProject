@@ -8,7 +8,6 @@ using FunkoProject.Services.Validation;
 
 namespace FunkoProject.Services;
 
-[Injectable]
 public interface IUserService
 {
     UserModel GetUserById(int userId);

@@ -6,7 +6,6 @@ using FunkoProject.Exceptions;
 
 namespace FunkoProject.Services;
 
-[Injectable]
 public interface IFiguresService
 {
     public Figure GetById(string id);

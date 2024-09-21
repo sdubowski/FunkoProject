@@ -14,7 +14,6 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<AuthenticationStateProvider, AuthenticationCustomProvider>();
-
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddAuthorizationCore();
 
