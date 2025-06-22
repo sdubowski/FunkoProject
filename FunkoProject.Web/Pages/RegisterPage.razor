@@ -5,7 +5,16 @@
     <EditForm Model="@model" OnValidSubmit="HandleRegistration">
         <DataAnnotationsValidator />
         <ValidationSummary />
-
+        <div class="mb-3">
+            <label for="firstName" class="form-label">Imię</label>
+            <InputText id="email" class="form-control" @bind-Value="model.Email" />
+            <ValidationMessage For="@(() => model.FirstName)" />
+        </div>
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Nazwisko</label>
+            <InputText id="email" class="form-control" @bind-Value="model.Email" />
+            <ValidationMessage For="@(() => model.LastName)" />
+        </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <InputText id="email" class="form-control" @bind-Value="model.Email"/>

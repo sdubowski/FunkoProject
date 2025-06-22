@@ -1,18 +1,19 @@
 ﻿using System.Net.Http.Json;
 using FunkoProject.Web.Models;
+using FunkoProject.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.JSInterop;
 
 namespace FunkoProject.Web.Components.Modals;
 
 public partial class UploadImageModalBase : ComponentBase
 {
     [Inject]
-    protected HttpClient Http { get; set; }
+    protected IFileService fileService { get; set; }
     protected bool IsFileSelected { get; set; }
     protected IBrowserFile SelectedFile { get; set; }
-    protected string UploadMessage { get; set; }
-    protected FileModel FileModel = new FileModel();
+    protected IActionResult FileModel = new IActionResult();
     [Parameter] public string UserId { get; set; }
     [Parameter] public EventCallback OnCancel { get; set; }
     
@@ -40,25 +41,14 @@ public partial class UploadImageModalBase : ComponentBase
     {
         if (!string.IsNullOrEmpty(UserId) && FileModel.Content != null)
         {
-            FileModel.UserId = UserId;
-            var response = await Http.PostAsJsonAsync("api/files/UploadFile", FileModel);
-
-            if (response.IsSuccessStatusCode)
-            {
-                UploadMessage = "File uploaded successfully";
-            }
-            else
-            {
-                UploadMessage = "File upload failed";
-            }
+            await fileService.UploadFiles(UserId, FileModel);
         }
-
         await HandleCancel();
     }
     
     protected void RemoveFile()
     {
-        FileModel = new FileModel();
+        FileModel = new IActionResult();
         IsFileSelected = false;
     }
     

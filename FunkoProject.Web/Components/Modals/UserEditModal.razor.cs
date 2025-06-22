@@ -15,6 +15,8 @@ public partial class UserEditModal : ComponentBase
         {
             await OnSave.InvokeAsync(null);
         }
+
+        await HandleCancel();
     }
 
     private async Task HandleCancel()

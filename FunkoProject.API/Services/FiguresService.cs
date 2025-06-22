@@ -3,6 +3,7 @@ using FunkoProject.Common.Atributes;
 using FunkoProject.Data;
 using FunkoProject.Data.Entities;
 using FunkoProject.Exceptions;
+using FunkoProject.Models;
 
 namespace FunkoProject.Services;
 
@@ -12,6 +13,8 @@ public interface IFiguresService
     public void AddNewFigure(Figure figure);
     public void DeleteFigure(string Id);
     public void EditFigure(Figure figure);
+    public List<UserFigure> GetAllUsersFigures(int userId);
+    void AddNewUserFigure(RegisterFigureDto userFigure);
 }
 
 public class FiguresServices : IFiguresService
@@ -34,6 +37,12 @@ public class FiguresServices : IFiguresService
         }
 
         return figure;
+    }
+
+    public List<UserFigure> GetAllUsersFigures(int userId)
+    {
+        var figures = _context.UserFigures.Where(f => f.UserId == userId).ToList();
+        return figures;
     }
 
     public void AddNewFigure(Figure figure)
@@ -77,5 +86,18 @@ public class FiguresServices : IFiguresService
     {
         var figure = _context.Figures.FirstOrDefault(f => f.Id == id);
         return figure;
+    }
+
+    public void AddNewUserFigure(RegisterFigureDto userFigure)
+    {
+        var figure = new UserFigure
+        {
+            Name = userFigure.FigureName,
+            Description = userFigure.Description,
+            UserId = userFigure.UserId,
+        };
+        figure.UserId = 27;
+        _context.UserFigures.Add(figure);
+        _context.SaveChanges();
     }
 }

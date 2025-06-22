@@ -24,6 +24,14 @@ namespace FunkoProject.Controllers
             return figure;
         }
 
+        [HttpGet]
+        [Route("GetUserFigures/{userId}")]
+        public List<UserFigure> GetUserFigures(int userId)
+        {
+            var figures = _figuresService.GetAllUsersFigures(userId);
+            return figures;
+        }
+
         [HttpPost]
         [Route("AddFigure")]
         public ActionResult AddNewFigure([FromBody] Figure figure)
@@ -44,6 +52,7 @@ namespace FunkoProject.Controllers
         [Route("RegisterFigureForUser")]
         public ActionResult RegisterFigureForUser([FromBody] RegisterFigureDto figure)
         {
+            _figuresService.AddNewUserFigure(figure);
             return Ok();
         }
 

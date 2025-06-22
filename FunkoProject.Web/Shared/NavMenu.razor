@@ -11,33 +11,20 @@
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
-        <div class="nav-item px-3">
+        <div class="nav-item ps-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
+                <span class="oi oi-home" aria-hidden="false"></span> Home
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="login">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Login
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
+        <div class="nav-item ps-3">
             <NavLink class="nav-link" href="ProfilePage">
-                <span class="oi oi-person" aria-hidden="true"></span> Profile Page
+                <span class="oi oi-person" aria-hidden="false"></span> Profil
+            </NavLink>
+        </div>
+        <div class="nav-item ps-3">
+            <NavLink class="nav-link" href="AddFigurePage">
+                <span class="oi oi-person" aria-hidden="false"></span> Dodaj figurkę
             </NavLink>
         </div>
     </nav>
-</div>
-<div class="top-row px-4">
-    <button @onclick="Logout">Logout</button>
 </div>

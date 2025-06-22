@@ -11,7 +11,7 @@
         public string? PasswordHash { get; set; }
         public int RoleId { get; set; }
         public virtual Role Role { get; set; }
-        
+        public virtual ICollection<UserFigure> UserFigures { get; set; } = new List<UserFigure>();
         public virtual ICollection<UserFriend> Friends { get; set; }
         public virtual ICollection<UserFriend> FriendOf { get; set; }
 
