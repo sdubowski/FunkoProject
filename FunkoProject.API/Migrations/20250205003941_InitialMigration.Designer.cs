@@ -4,6 +4,7 @@ using FunkoProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FunkoProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250205003941_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -153,12 +156,12 @@ namespace FunkoProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("OwningUserIdId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("OwningUserIdId");
 
                     b.ToTable("UserFigures");
                 });
@@ -191,13 +194,13 @@ namespace FunkoProject.Migrations
 
             modelBuilder.Entity("FunkoProject.Data.Entities.UserFigure", b =>
                 {
-                    b.HasOne("FunkoProject.Data.Entities.User", "OwningUser")
-                        .WithMany("UserFigures")
-                        .HasForeignKey("UserId")
+                    b.HasOne("FunkoProject.Data.Entities.User", "OwningUserId")
+                        .WithMany()
+                        .HasForeignKey("OwningUserIdId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("OwningUser");
+                    b.Navigation("OwningUserId");
                 });
 
             modelBuilder.Entity("FunkoProject.Data.Entities.UserFriend", b =>
@@ -224,8 +227,6 @@ namespace FunkoProject.Migrations
                     b.Navigation("FriendOf");
 
                     b.Navigation("Friends");
-
-                    b.Navigation("UserFigures");
                 });
 #pragma warning restore 612, 618
         }

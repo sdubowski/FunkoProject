@@ -24,6 +24,7 @@ public class UserRepository:IUserRepository
     
     public User Get(int userId)
     {
+        var test = userId;
         return _appDbContext.Users
             .Include(u => u.Friends)
             .ThenInclude(uf => uf.Friend)

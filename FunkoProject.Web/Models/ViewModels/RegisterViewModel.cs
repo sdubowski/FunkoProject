@@ -4,6 +4,10 @@ namespace FunkoProject.Web.Models.ViewModels
 {
     public class RegisterViewModel
     {
+        [Required(ErrorMessage = "Imię jest wymagane")]
+        public string FirstName { get; set; }
+        [Required(ErrorMessage = "Nazwisko jest wymagane")]
+        public string LastName { get; set; }
         [Required(ErrorMessage = "Mail jest wymagane")]
         [EmailAddress(ErrorMessage = "Nie poprawny adres email")]
         public string Email { get; set; }

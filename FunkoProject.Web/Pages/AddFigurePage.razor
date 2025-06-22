@@ -1,0 +1,25 @@
+﻿@page "/AddFigurePage"
+@using Microsoft.AspNetCore.Authorization;
+@attribute [Authorize]
+@inherits AddFigurePageBase
+
+<div class="container mt-5" style="max-width: 600px;">
+    <h3 class="mb-4">Dodaj figurkę</h3>
+    <EditForm Model="userFigure" class="needs-validation">
+        <DataAnnotationsValidator />
+
+        <div class="mb-3">
+            <label for="name" class="form-label">Nazwa:</label>
+            <InputText id="name" @bind-Value="userFigure.FigureName" class="form-control" />
+            <ValidationMessage For="@(() => userFigure.FigureName)" class="text-danger" />
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Opis:</label>
+            <InputText id="description" @bind-Value="userFigure.Description" class="form-control" />
+            <ValidationMessage For="@(() => userFigure.Description)" class="text-danger" />
+        </div>
+
+        <button type="submit" class="btn btn-primary" @onclick='HandleValidSubmit'>Wyślij</button>
+    </EditForm>
+</div>

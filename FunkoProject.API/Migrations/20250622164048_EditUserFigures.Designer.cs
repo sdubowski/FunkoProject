@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FunkoProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240917173242_InitNew")]
-    partial class InitNew
+    [Migration("20250622164048_EditUserFigures")]
+    partial class EditUserFigures
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -140,6 +140,36 @@ namespace FunkoProject.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("FunkoProject.Data.Entities.UserFigure", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OwningUserIdId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwningUserIdId");
+
+                    b.ToTable("UserFigures");
+                });
+
             modelBuilder.Entity("FunkoProject.Data.Entities.UserFriend", b =>
                 {
                     b.Property<int>("UserId")
@@ -164,6 +194,17 @@ namespace FunkoProject.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("FunkoProject.Data.Entities.UserFigure", b =>
+                {
+                    b.HasOne("FunkoProject.Data.Entities.User", "OwningUserId")
+                        .WithMany()
+                        .HasForeignKey("OwningUserIdId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("OwningUserId");
                 });
 
             modelBuilder.Entity("FunkoProject.Data.Entities.UserFriend", b =>

@@ -5,19 +5,12 @@ namespace FunkoProject.Web.Shared;
 
 public class NavMenuBase : LayoutComponentBase
 {
-    [Inject] private IAuthService _authService { get; set; }
+    private bool _collapseNavMenu = false;
 
-    public async Task Logout()
-    {
-        await _authService.Logout();
-    }
-
-    private bool _collapseNavMenu = true;
-
-    protected string? NavMenuCssClass => _collapseNavMenu ? "collapse" : null;
+    protected string NavMenuCssClass => "collapse show";
 
     public void ToggleNavMenu()
     {
-        _collapseNavMenu = !_collapseNavMenu;
+        // Nic nie robimy, menu zawsze otwarte
     }
 }

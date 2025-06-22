@@ -13,6 +13,7 @@ namespace FunkoProject.Data
         public DbSet<Role> Roles { get; set; }
         public DbSet<FileModel> Files { get; set; }
         public DbSet<UserFriend> UserFriends { get; set; }
+        public DbSet<UserFigure> UserFigures { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -40,6 +41,10 @@ namespace FunkoProject.Data
                 .WithMany(u => u.FriendOf)
                 .HasForeignKey(uf => uf.FriendId)
                 .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<UserFigure>()
+                .HasOne(uf => uf.OwningUser)
+                .WithMany(u => u.UserFigures) // jeśli masz kolekcję w User
+                .HasForeignKey(uf => uf.UserId);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

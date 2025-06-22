@@ -1,6 +1,6 @@
 ﻿namespace FunkoProject.Web.Models;
 
-public class FileModel
+public class IActionResult
 {
     public string FileName { get; set; }
     public string ContentType { get; set; }

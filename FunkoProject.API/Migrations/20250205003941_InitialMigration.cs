@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FunkoProject.Migrations
 {
     /// <inheritdoc />
-    public partial class InitNew : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -83,6 +83,27 @@ namespace FunkoProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserFigures",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OwningUserIdId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserFigures", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserFigures_Users_OwningUserIdId",
+                        column: x => x.OwningUserIdId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserFriends",
                 columns: table => new
                 {
@@ -107,6 +128,11 @@ namespace FunkoProject.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_UserFigures_OwningUserIdId",
+                table: "UserFigures",
+                column: "OwningUserIdId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserFriends_FriendId",
                 table: "UserFriends",
                 column: "FriendId");
@@ -125,6 +151,9 @@ namespace FunkoProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "Files");
+
+            migrationBuilder.DropTable(
+                name: "UserFigures");
 
             migrationBuilder.DropTable(
                 name: "UserFriends");
