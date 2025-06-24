@@ -5,25 +5,25 @@ using FunkoProject.Repositories;
 
 namespace FunkoProject.Services;
 
-public interface IFileService
+public interface IAmazonS3Service
 {
-    Task<(bool IsSuccess, string Message)> UploadFileAsync(FileModel file);
-    Task<FileModel> DownloadFileAsync(string fileName, string id);
+    Task<(bool IsSuccess, string Message)> UploadFileAsync(Attachment file);
+    Task<Attachment> DownloadFileAsync(string fileName, string id);
 }
 
-public class FileService : IFileService
+public class AmazonS3Service : IAmazonS3Service
 {
     private readonly IAmazonS3 _s3Client;
     private readonly IFileRepository _fileRepository;
     private const string BucketName = "funko-project-bucket";
 
-    public FileService(IAmazonS3 s3Client, IFileRepository fileRepository)
+    public AmazonS3Service(IAmazonS3 s3Client, IFileRepository fileRepository)
     {
         _s3Client = s3Client;
         _fileRepository = fileRepository;
     }
 
-    public async Task<(bool IsSuccess, string Message)> UploadFileAsync(FileModel file)
+    public async Task<(bool IsSuccess, string Message)> UploadFileAsync(Attachment file)
     {
         if (file == null || file.Content == null || file.Content.Length == 0)
         {
@@ -42,13 +42,13 @@ public class FileService : IFileService
             };
 
             var response = await _s3Client.PutObjectAsync(putRequest);
-            var fileToUpload = new FileModel()
+            var fileToUpload = new Attachment()
             {
                 FileName = file.FileName,
                 Content = stream.ToArray(),
                 ContentType = file.ContentType,
                 Size = stream.Length,
-                UserId = "1"
+                UserId = 1
             };
             _fileRepository.UploadFile(fileToUpload);
             return (true, $"Plik {file.FileName} został pomyślnie przesłany do S3.");
@@ -59,7 +59,7 @@ public class FileService : IFileService
         }
     }
 
-    public async Task<FileModel> DownloadFileAsync(string fileName, string id)
+    public async Task<Attachment> DownloadFileAsync(string fileName, string id)
     {
         try
         {
@@ -73,14 +73,14 @@ public class FileService : IFileService
             using var responseStream = response.ResponseStream;
             using var memoryStream = new MemoryStream();
             await responseStream.CopyToAsync(memoryStream);
-        
-            return new FileModel
+
+            return new Attachment
             {
                 FileName = fileName,
                 Content = memoryStream.ToArray(),
                 ContentType = response.Headers.ContentType,
                 Size = response.Headers.ContentLength,
-                UserId = id
+                UserId = int.Parse(id)
             };
         }
         catch (AmazonS3Exception)

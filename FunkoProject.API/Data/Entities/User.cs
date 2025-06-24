@@ -14,6 +14,7 @@
         public virtual ICollection<UserFigure> UserFigures { get; set; } = new List<UserFigure>();
         public virtual ICollection<UserFriend> Friends { get; set; }
         public virtual ICollection<UserFriend> FriendOf { get; set; }
+        public virtual ICollection<Attachment> Attachments { get; set; } = new List<Attachment>();
 
         public User()
         {
