@@ -11,7 +11,7 @@ namespace FunkoProject.Data
         public DbSet<Figure> Figures { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<FileModel> Files { get; set; }
+        public DbSet<Attachment> Attachments { get; set; }
         public DbSet<UserFriend> UserFriends { get; set; }
         public DbSet<UserFigure> UserFigures { get; set; }
 
@@ -26,9 +26,14 @@ namespace FunkoProject.Data
             modelBuilder.Entity<Figure>()
                 .Property(f => f.Handle)
                 .IsRequired();
-            modelBuilder.Entity<FileModel>()
+            modelBuilder.Entity<Attachment>()
                 .Property(f => f.UserId)
                 .IsRequired();
+            modelBuilder.Entity<Attachment>()
+                .HasOne(f => f.User)
+                .WithMany(u => u.Attachments)
+                .HasForeignKey(f => f.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<UserFriend>()
                 .HasKey(uf => new { uf.UserId, uf.FriendId });
             modelBuilder.Entity<UserFriend>()

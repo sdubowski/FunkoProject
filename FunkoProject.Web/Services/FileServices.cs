@@ -1,14 +1,16 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+using System.Net.Mail;
 using FunkoProject.Web.Models;
+using static System.Net.WebRequestMethods;
 
 namespace FunkoProject.Web.Services;
 
 
 public interface IFileService
 {
-    Task<string> UploadFiles(string userId, IActionResult fileModel);
-    Task GetFile(string userId);
+    Task<string> UploadFiles(string userId, FileModel fileModel);
+    Task<FileDto> GetFile(int id);
 }
 
 
@@ -21,7 +23,7 @@ public class FileServices : IFileService
         _httpClient = httpClient;
     }
     
-    public async Task<string> UploadFiles(string userId, IActionResult fileModel)
+    public async Task<string> UploadFiles(string userId, FileModel fileModel)
     {
         fileModel.UserId = userId;
         string uploadMessage;
@@ -38,9 +40,25 @@ public class FileServices : IFileService
         return uploadMessage;
     }
 
-    public async Task GetFile(string userId)
+    public async Task<FileDto> GetFile(int id)
     {
-/*        var response = await _httpClient.GetAsync($"api/files/{userId}");
-        return response;*/
+        try
+    {
+        var response = await _httpClient.GetAsync($"api/files/image/{id}");
+        if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            return null; // brak zdjęcia — zwracamy null
+        }
+        
+        response.EnsureSuccessStatusCode(); // inne błędy nadal rzucą wyjątek
+
+        var fileDto = await response.Content.ReadFromJsonAsync<FileDto>();
+        return fileDto;
+    }
+    catch (Exception ex)
+    {
+        Console.Error.WriteLine($"Błąd pobierania pliku: {ex.Message}");
+        return null; // w razie innego błędu też zwracamy null lub możesz przepuścić wyjątek dalej
+    }
     }
 }

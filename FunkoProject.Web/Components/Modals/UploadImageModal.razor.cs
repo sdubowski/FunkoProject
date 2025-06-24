@@ -13,10 +13,11 @@ public partial class UploadImageModalBase : ComponentBase
     protected IFileService fileService { get; set; }
     protected bool IsFileSelected { get; set; }
     protected IBrowserFile SelectedFile { get; set; }
-    protected IActionResult FileModel = new IActionResult();
+    protected FileModel FileModel = new FileModel();
     [Parameter] public string UserId { get; set; }
     [Parameter] public EventCallback OnCancel { get; set; }
-    
+    [Parameter] public EventCallback OnUploadComplete { get; set; }
+
 
     protected async Task HandleFileSelected(InputFileChangeEventArgs e)
     {
@@ -42,13 +43,14 @@ public partial class UploadImageModalBase : ComponentBase
         if (!string.IsNullOrEmpty(UserId) && FileModel.Content != null)
         {
             await fileService.UploadFiles(UserId, FileModel);
+            await OnUploadComplete.InvokeAsync(null);
         }
         await HandleCancel();
     }
     
     protected void RemoveFile()
     {
-        FileModel = new IActionResult();
+        FileModel = new FileModel();
         IsFileSelected = false;
     }
     

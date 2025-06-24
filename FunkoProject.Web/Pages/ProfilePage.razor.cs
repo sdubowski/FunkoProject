@@ -14,6 +14,7 @@ public partial class ProfilePage : ComponentBase
     private int userFigures;
     private bool isEditModalOpen = false;
     private bool isUploadModalOpen = false;
+    private FileDto file;
     [Inject]
     private IUserService UserService { get; set; }
     [Inject]
@@ -24,9 +25,17 @@ public partial class ProfilePage : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        user = await UserService.GetUserAsync();
-        userFigure = await FiguresService.GetUserFiguresAsync(user.Id);
-        userFigures = userFigure.Count;
+        try
+        {
+            user = await UserService.GetUserAsync();
+            userFigure = await FiguresService.GetUserFiguresAsync(user.Id);
+            userFigures = userFigure.Count;
+            file = await FileService.GetFile(user.Id);
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Błąd ładowania danych: {ex.Message}");
+        }
     }
 
     private void OpenEditModal(ModalTypeEnum modalTypeEnum)
@@ -63,5 +72,12 @@ public partial class ProfilePage : ComponentBase
         {
             CloseEditModal();
         }*/
+    }
+
+    private async Task RefreshProfileImage()
+    {
+        file = await FileService.GetFile(user.Id);
+        StateHasChanged();
+        CloseEditModal(ModalTypeEnum.Upload);
     }
 }

@@ -5,8 +5,8 @@ namespace FunkoProject.Repositories;
 
 public interface IFileRepository
 {
-    FileModel GetFile(string userId);
-    void UploadFile(FileModel fileModel);
+    Task<Attachment> GetFile(string userId);
+    Task<bool> UploadFile(Attachment fileModel);
 }
 
 public class FileRepository : IFileRepository
@@ -18,13 +18,23 @@ public class FileRepository : IFileRepository
         _appDbContext = appDbContext;
     }
 
-    public FileModel GetFile(string userId)
+    public async Task<Attachment> GetFile(string userId)
     {
-        return _appDbContext.Files.FirstOrDefault(f => f.UserId == userId) ?? throw new FileNotFoundException("not found");
+        return _appDbContext.Attachments.FirstOrDefault(f => f.UserId == int.Parse(userId));
     }
 
-    public void UploadFile(FileModel fileModel)
+    public async Task<bool> UploadFile(Attachment fileModel)
     {
-        _appDbContext.Files.Add(fileModel);
+        var currentFile = _appDbContext.Attachments.FirstOrDefault(f => f.UserId == fileModel.UserId);
+        if (currentFile != null)
+        {
+            _appDbContext.Attachments.Remove(currentFile);
+        }
+        if (fileModel == null)
+            return false;
+
+        _appDbContext.Attachments.Add(fileModel);
+        _appDbContext.SaveChanges();
+        return true;
     }
 }
