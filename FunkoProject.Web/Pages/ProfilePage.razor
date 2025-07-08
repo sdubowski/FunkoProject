@@ -1,5 +1,6 @@
 ﻿@page "/ProfilePage"
 @attribute [Authorize]
+@using FunkoProject.Web.Components.FigureComponents
 @using FunkoProject.Web.Components.Modals
 @using FunkoProject.Web.Enums
 @using Microsoft.AspNetCore.Authorization
@@ -32,7 +33,7 @@
 
     <hr/>
 
-    <UserFigures Figures="@userFigure"></UserFigures>
+    @* <UserFigures Figures="@userFigure"></UserFigures> *@
     
     @if (isEditModalOpen)
     {
@@ -42,4 +43,7 @@
     {
         <UploadImageModal UserId="@user.Id.ToString()" OnCancel="() => CloseEditModal(ModalTypeEnum.Upload)" OnUploadComplete="RefreshProfileImage"></UploadImageModal>
     }
+</div>
+<div>
+    <UserFigures Figures="userFigure"/>
 </div>
