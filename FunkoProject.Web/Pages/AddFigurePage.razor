@@ -3,23 +3,63 @@
 @attribute [Authorize]
 @inherits AddFigurePageBase
 
-<div class="container mt-5" style="max-width: 600px;">
-    <h3 class="mb-4">Dodaj figurkę</h3>
-    <EditForm Model="userFigure" class="needs-validation">
-        <DataAnnotationsValidator />
+<div class="container py-5">
+    <div class="card shadow rounded-4 p-4">
+        <h3 class="mb-4 text-primary">Dodaj nową figurkę</h3>
 
-        <div class="mb-3">
-            <label for="name" class="form-label">Nazwa:</label>
-            <InputText id="name" @bind-Value="userFigure.FigureName" class="form-control" />
-            <ValidationMessage For="@(() => userFigure.FigureName)" class="text-danger" />
-        </div>
+        <EditForm Model="userFigure" OnValidSubmit="HandleValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
 
-        <div class="mb-3">
-            <label for="description" class="form-label">Opis:</label>
-            <InputText id="description" @bind-Value="userFigure.Description" class="form-control" />
-            <ValidationMessage For="@(() => userFigure.Description)" class="text-danger" />
-        </div>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="figureName" class="form-label">Nazwa:</label>
+                    <InputText id="figureName" @bind-Value="userFigure.FigureName" class="form-control" />
+                    <ValidationMessage For="@(() => userFigure.FigureName)" class="text-danger small" />
+                </div>
 
-        <button type="submit" class="btn btn-primary" @onclick='HandleValidSubmit'>Wyślij</button>
-    </EditForm>
+                <div class="col-md-6">
+                    <label for="seriesName" class="form-label">Seria:</label>
+                    <InputText id="seriesName" @bind-Value="userFigure.SeriesName" class="form-control" />
+                    <ValidationMessage For="@(() => userFigure.SeriesName)" class="text-danger small" />
+                </div>
+
+                <div class="col-12">
+                    <label for="description" class="form-label">Opis:</label>
+                    <InputTextArea id="description" @bind-Value="userFigure.Description" class="form-control" rows="3" />
+                    <ValidationMessage For="@(() => userFigure.Description)" class="text-danger small" />
+                </div>
+
+                <div class="col-md-6">
+                    <label for="price" class="form-label">Cena (PLN):</label>
+                    <InputNumber id="price" @bind-Value="userFigure.Price" class="form-control" step="0.01" />
+                    <ValidationMessage For="@(() => userFigure.Price)" class="text-danger small" />
+                </div>
+
+                <div class="col-md-6">
+                    <label for="image" class="form-label">Zdjęcie figurki:</label>
+                    <InputFile id="image" OnChange="OnInputFileChange" accept=".jpg,.jpeg,.png" class="form-control" />
+                    @if (!string.IsNullOrEmpty(uploadError))
+                    {
+                        <div class="text-danger small mt-1">@uploadError</div>
+                    }
+                    <ValidationMessage For="@(() => userFigure.Image)" class="text-danger small" />
+                </div>
+
+                @if (!string.IsNullOrEmpty(imagePreviewUrl))
+                {
+                    <div class="col-12">
+                        <label class="form-label">Podgląd:</label>
+                        <img src="@imagePreviewUrl" class="img-thumbnail rounded shadow-sm" style="max-height: 200px;" />
+                    </div>
+                }
+
+                <div class="col-12 text-end mt-3">
+                    <button type="submit" class="btn btn-success px-4 shadow-sm">
+                        <i class="bi bi-plus-circle"></i> Wyślij
+                    </button>
+                </div>
+            </div>
+        </EditForm>
+    </div>
 </div>

@@ -1,0 +1,17 @@
+﻿@inherits UserFiguresBase
+
+@if (Figures == null || Figures.Count == 0)
+{
+    <p>Brak figurek do wyświetlenia.</p>
+}
+else
+{
+    <div class="grid-container">
+        @foreach (var figure in Figures)
+        {
+            <div class="grid-item">
+                <FigureCard figure="figure" />
+            </div>
+        }
+    </div>
+}

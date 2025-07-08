@@ -1,5 +1,7 @@
 ﻿using FunkoProject.Web.Components;
+using FunkoProject.Web.Models;
 using FunkoProject.Web.Models.ViewModels;
+using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
 
 namespace FunkoProject.Web.Services
