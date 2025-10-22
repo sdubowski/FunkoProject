@@ -1,1 +1,1 @@
-ZBAWICIEL CZY ANTYCHRYST ?
+Funko Pop Wallet
